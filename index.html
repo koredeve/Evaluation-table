@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eval Table</title>
+    <style>
+        body {
+            background-image: url(/images/view-rock-formations-with-nature-landscape.jpg);
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            text-align: center;
+        }
+        input , select , button {
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 10px;
+            justify-content: center;
+            text-align: center;
+            background-color: #1295f2;
+            color: white;
+        }
+        td {
+            border : 1px solid black;
+            text-align: center;
+            padding: 8px;
+            text-align: center;
+        }
+        #table-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Evaluation Table</h1>
+        <span>Columns
+        <input type="number" id="columns" required>
+        </span>
+        <span>Rows <input type="number" id="rows" required></span>
+        <span class="eval">Evaluation <select name="" id="evaluation">
+            <option value="ADD">ADD</option>
+            <option value="DIVISION">DIVISION</option>
+            <option value="SUBTRACT">SUBTRACT</option>
+            <option value="MULTIPLY">MULTIPLY</option>
+        </select></span>
+        <button onclick="makeATable()">Make me a table</button>
+    </div>
+            <div id="table-container"></div>
+    <script>
+        function makeATable() {
+            var columns = Number(document.getElementById('columns').value);
+            var rows = Number(document.getElementById('rows').value);
+            var evaluation = document.getElementById('evaluation').value;
+            var tableContainer = document.getElementById('table-container') 
+
+            if (!columns || !rows) {
+                alert("Please enter valid numbers for columns and rows");
+                return;
+            }
+            tableContainer.innerHTML = '';
+
+
+            var table = document.createElement('table');
+            for (var i = 1; i <= rows; i++) {
+                const row = document.createElement('tr');
+            for (var j = 1; j <= columns; j++) {
+
+                const cell = document.createElement('td');
+                let result;
+
+                if ( evaluation === 'ADD') {
+                    result = `${i} + ${j} = ${i + j}`;
+                } else if ( evaluation === 'SUBTRACT') {
+                    result = `${i} - ${j} = ${i - j}`;
+                } else if ( evaluation === 'MULTIPLY') {
+                    result = `${i} * ${j} = ${i * j}`;
+                } else if ( evaluation === 'DIVISION') {
+                    result = `${i} ÷ ${j} = ${(i / j).toFixed(2)}`;
+                } 
+                cell.textContent = result;
+                row.appendChild(cell);
+            } 
+            table.appendChild(row)
+        }
+        tableContainer.appendChild(table);
+        }
+    </script>
+</body>
+</html>
